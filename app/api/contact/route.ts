@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { contactPage } from "@/content/contact";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const INBOX = process.env.CONTACT_INBOX?.trim() || contactPage.email;
+const RESEND_ENDPOINT = "https://api.resend.com/emails";
+const FROM_ADDRESS = "Portfolio <onboarding@resend.dev>";
 
 type ContactBody = {
   name?: unknown;
@@ -14,12 +14,24 @@ function asTrimmedString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function jsonError(error: string, status: number) {
+  return NextResponse.json({ ok: false, error }, { status });
+}
+
 export async function POST(request: Request) {
   let body: ContactBody;
   try {
     body = (await request.json()) as ContactBody;
   } catch {
-    return NextResponse.json({ ok: false }, { status: 400 });
+    return jsonError("Invalid JSON body.", 400);
   }
 
   const name = asTrimmedString(body.name);
@@ -27,83 +39,58 @@ export async function POST(request: Request) {
   const message = asTrimmedString(body.message);
 
   if (!name || !email || !message || !EMAIL_PATTERN.test(email)) {
-    return NextResponse.json({ ok: false }, { status: 400 });
+    return jsonError("Name, a valid email, and a message are required.", 400);
   }
 
-  const origin =
-    request.headers.get("origin") || new URL(request.url).origin;
-  const referer =
-    request.headers.get("referer") || `${origin}/contact`;
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const inbox = process.env.CONTACT_INBOX?.trim();
 
-  let delivered = false;
+  if (!apiKey || !inbox) {
+    console.error("Contact API missing RESEND_API_KEY or CONTACT_INBOX.");
+    return jsonError("Email service is not configured.", 500);
+  }
+
   try {
-    delivered = await deliverWithFormSubmit({
-      name,
-      email,
-      message,
-      origin,
-      referer,
-    });
-  } catch (error) {
-    console.error("Contact delivery request failed:", error);
-  }
-
-  if (!delivered) {
-    return NextResponse.json({ ok: false }, { status: 502 });
-  }
-
-  return NextResponse.json({ ok: true });
-}
-
-async function deliverWithFormSubmit({
-  name,
-  email,
-  message,
-  origin,
-  referer,
-}: {
-  name: string;
-  email: string;
-  message: string;
-  origin: string;
-  referer: string;
-}) {
-  const response = await fetch(
-    `https://formsubmit.co/ajax/${encodeURIComponent(INBOX)}`,
-    {
+    const response = await fetch(RESEND_ENDPOINT, {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        Origin: origin,
-        Referer: referer,
       },
       body: JSON.stringify({
-        name,
-        email,
-        message,
-        _subject: `New portfolio inquiry from ${name}`,
-        _template: "table",
-        _captcha: "false",
-        _replyto: email,
+        from: FROM_ADDRESS,
+        to: [inbox],
+        reply_to: email,
+        subject: `New portfolio inquiry from ${name}`,
+        text: [`Name: ${name}`, `Email: ${email}`, "", message].join("\n"),
+        html: [
+          `<p><strong>Name:</strong> ${escapeHtml(name)}</p>`,
+          `<p><strong>Email:</strong> ${escapeHtml(email)}</p>`,
+          `<p>${escapeHtml(message).replaceAll("\n", "<br />")}</p>`,
+        ].join(""),
       }),
-    },
-  );
+    });
 
-  let payload: { success?: string | boolean; message?: string } = {};
-  try {
-    payload = (await response.json()) as {
-      success?: string | boolean;
+    const payload = (await response.json().catch(() => null)) as {
+      id?: string;
       message?: string;
-    };
-  } catch {
-    return false;
-  }
+      name?: string;
+    } | null;
 
-  const ok = payload.success === true || payload.success === "true";
-  if (!ok) {
-    console.error("FormSubmit delivery failed:", payload.message ?? response.status);
-  }
+    if (!response.ok || !payload?.id) {
+      console.error("Resend delivery failed:", {
+        status: response.status,
+        payload,
+      });
+      return jsonError(
+        payload?.message ?? "Failed to send the message.",
+        502,
+      );
+    }
 
-  return ok;
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    console.error("Contact delivery request failed:", error);
+    return jsonError("Failed to send the message.", 502);
+  }
 }
