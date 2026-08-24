@@ -1,0 +1,68 @@
+export const systemsPage = {
+  sectionNumber: "04",
+  sectionLabel: "DESIGN SYSTEMS",
+  headline: ["SYSTEMS THAT SCALE", "WITH THE PRODUCT."],
+  supporting:
+    "I build flexible design systems that turn visual decisions into reusable foundations, components, and patterns across products.",
+  tags: [
+    "TOKENS",
+    "VARIABLES",
+    "COMPONENT LIBRARIES",
+    "ACCESSIBILITY",
+    "DOCUMENTATION",
+  ],
+  capabilities: [
+    {
+      icon: "palette",
+      inset: "12.5% 12.5% 12.48% 12.5%",
+      index: "01",
+      label: "— FOUNDATIONS",
+      title: "Built from reusable decisions.",
+      body: "Colors, typography, primitives, semantic tokens, and design variables structured to support consistency and change.",
+    },
+    {
+      icon: "category",
+      inset: "16.67%",
+      index: "02",
+      label: "— COMPONENTS",
+      title: "Designed to be reused, not rebuilt.",
+      body: "Reusable components with variants, states, and responsive behavior based on real product requirements.",
+    },
+    {
+      icon: "sun",
+      inset: "12.5%",
+      index: "03",
+      label: "— THEMING",
+      title: "One system. Multiple directions.",
+      body: "Light and dark modes, with token structures that support different brands and colour directions.",
+    },
+    {
+      icon: "book",
+      inset: "19.98% 12.5% 20.83% 12.5%",
+      index: "04",
+      label: "— DOCUMENTATION",
+      title: "Clear enough to hand off.",
+      body: "Documentation that helps teams understand where to find components, assets, and the right patterns to use.",
+    },
+    {
+      icon: "accessible",
+      inset: "12.5%",
+      index: "05",
+      label: "— ACCESSIBILITY",
+      title: "Checked beyond visual preference.",
+      body: "Contrast and WCAG checks using Figma accessibility tools, external testing, and AI-assisted reviews.",
+    },
+  ],
+  next: {
+    eyebrow: "05 - NEXT",
+    title: "SEE THE SYSTEM IN PRACTICE.",
+    cta: "→ VIEW DESIGN SYSTEM CASE STUDY",
+    href: "/work/design-system",
+  },
+  footer: {
+    back: "← WORK",
+    backHref: "/work",
+    top: "BACK TO TOP ↑",
+    next: "NEXT → EXPERIENCE",
+  },
+} as const;

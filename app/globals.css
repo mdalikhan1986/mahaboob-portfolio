@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --surface-black: #000000;
+  --surface-card: #111827;
+  --surface-primary: #28e98c;
+  --text-white: #ffffff;
+  --text-default: #000000;
+  --text-primary: #28e98c;
+  --text-muted: #898e99;
+  --text-secondary: #a1a8b2;
+  --icon-primary: #24d47f;
+  --buttons-primary: #28e98c;
+  --border-primary: #28e98c;
+  --border-subtle: #1d222f;
+  --divider: #1b1f26;
+
+  --fs-h1: 48px;
+  --fs-h2: 40px;
+  --fs-h3: 34px;
+  --fs-h4: 28px;
+  --fs-h5: 20px;
+  --fs-title: 18px;
+  --fs-body-1: 16px;
+  --fs-body-2: 14px;
+  --fs-caption: 12px;
+
+  --space-page-x: 24px;
+  --content-max: 1440px;
+
+  /* Layout rhythm from Figma desktop frames (1440). */
+  --space-header-to-marker: 0px;
+  --space-marker-to-heading: 40px;
+  --space-marker-to-heading-index: 32px;
+  --space-marker-to-heading-hero: 80px;
+  --space-heading-to-copy: 24px;
+  --space-heading-to-block: 54px;
+  --space-section: 54px;
+  --space-section-index: 60px;
+  --space-section-inset: 40px;
+  --space-hero-block: 44px;
+  --space-page-bottom: 120px;
+  --space-footer-y: 40px;
+  --space-footer-pad-top: 100px;
+  --space-hero-footer-top: 40px;
+  --space-hero-footer-bottom: 24px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@media (min-width: 768px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --space-page-x: 48px;
   }
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --space-marker-to-heading-hero: 88px;
+    --space-hero-footer-top: 48px;
+    --space-hero-footer-bottom: 32px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --space-page-x: 100px;
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --color-background: var(--surface-black);
+  --color-foreground: var(--text-white);
+}
+
+html {
+  background: var(--surface-black);
+  scroll-behavior: smooth;
+  scroll-padding-top: 104px;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--surface-black);
+  color: var(--text-white);
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--surface-primary);
+  color: var(--text-default);
+}
+
+:focus-visible {
+  outline: 2px solid var(--border-primary);
+  outline-offset: 3px;
+}
+
+.contact-field {
+  color-scheme: dark;
+}
+
+.contact-field:is(:autofill, :-webkit-autofill),
+.contact-field:is(:autofill, :-webkit-autofill):hover,
+.contact-field:is(:autofill, :-webkit-autofill):focus,
+.contact-field:is(:autofill, :-webkit-autofill):active {
+  -webkit-text-fill-color: var(--text-white) !important;
+  caret-color: var(--text-white);
+  background-color: #0b0c0e !important;
+  background-image: none !important;
+  box-shadow: 0 0 0 1000px #0b0c0e inset !important;
+  transition: background-color 99999s ease-out 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
