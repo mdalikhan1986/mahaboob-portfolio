@@ -80,7 +80,7 @@ export function WorkIndex() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-12">
+        <section className="flex flex-col gap-6 lg:-mt-4">
           <div className="flex flex-col gap-4">
             <p className="font-sans text-[length:var(--fs-caption)] font-semibold uppercase leading-[1.2] text-[var(--text-muted)]">
               {workPage.marketEyebrow}
@@ -125,32 +125,6 @@ export function WorkIndex() {
             ))}
           </div>
         </section>
-
-        <Link
-          href="/systems"
-          className="flex flex-col gap-8 border-t border-[var(--border-subtle)] pt-[var(--space-footer-pad-top)]"
-        >
-          <div className="flex items-center gap-3">
-            <span className="font-sans text-[length:var(--fs-caption)] font-semibold leading-[1.2] text-[var(--text-primary)]">
-              {workPage.nextEyebrow}
-            </span>
-            <span className="h-px w-10 bg-[var(--text-primary)]" aria-hidden="true" />
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="font-sans text-[32px] font-semibold leading-[1.2] text-[var(--text-white)] sm:text-[length:var(--fs-h1)]">
-              {workPage.nextTitle}
-            </p>
-            <span
-              className="font-sans text-[32px] font-semibold leading-[1.2] text-[var(--text-primary)] sm:text-[length:var(--fs-h1)]"
-              aria-hidden="true"
-            >
-              →
-            </span>
-          </div>
-          <p className="max-w-[640px] font-sans text-[length:var(--fs-title)] font-normal leading-[1.2] text-[var(--text-secondary)]">
-            {workPage.nextBody}
-          </p>
-        </Link>
 
         <footer className="flex flex-wrap items-center justify-between gap-4 py-12">
           <Link
