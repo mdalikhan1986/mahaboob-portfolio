@@ -3,7 +3,7 @@ export const experiencePage = {
   sectionLabel: "EXPERIENCE",
   headline: "FROM PRECISION TO PRODUCT.",
   supporting:
-    "My career evolved through different forms of visual problem-solving — from technical drawings and visual design to digital interfaces, enterprise products, and design leadership.",
+    "Senior product designer focused on complex enterprise SaaS, scalable design systems, and workflows that turn operational complexity into usable products.",
   heroIllustration: {
     src: "/images/experience/hero-illustration.svg",
     width: 623,
@@ -21,25 +21,25 @@ export const experiencePage = {
     number: "01",
     label: "FOUNDATION",
     heading: "EVERY ROLE BUILT THE NEXT.",
-    body: "Each role expanded how I think, design, and solve product problems.",
+    body: "Each stage expanded how I think, design, and solve product problems.",
     cards: [
       {
         icon: "geometry",
         inset: "12.5% 16.67%",
         title: "PRECISION",
-        body: "Detail, Structure and Accuracy",
+        body: "Technical Visualization",
       },
       {
         icon: "eye-check",
         inset: "25% 12.5% 12.5% 12.5%",
-        title: "Visual Clarity",
-        body: "Communication, Hierarchy and Focus",
+        title: "VISUAL CLARITY",
+        body: "Visual Design",
       },
       {
         icon: "packages",
         inset: "8.33%",
-        title: "System Thinking",
-        body: "Scale, Patterns and long-term impact.",
+        title: "SYSTEM THINKING",
+        body: "Product Design",
       },
     ],
   },
@@ -56,53 +56,25 @@ export const experiencePage = {
     columns: [
       {
         title: "PRIMARY UX CORE",
-        tools: [
-          {
-            name: "FIGMA",
-            body: "Advanced variable modes, tokens mapping, and enterprise component architecture.",
-          },
-          {
-            name: "FIGJAM",
-            body: "Interactive brainstorming, stakeholder journey flows, and discovery coordination.",
-          },
-          {
-            name: "MIRO",
-            body: "Collaborative service maps and user-journey workshop mapping.",
-          },
-        ],
-        note: undefined,
+        tools: ["FIGMA", "FIGJAM", "MIRO", "FRAMER", "SKETCH"],
       },
       {
         title: "AI-ASSISTED DESIGN",
         tools: [
-          {
-            name: "CLAUDE / CHATGPT",
-            body: "Writing design systems guidelines, accessibility copies, and testing scenarios.",
-          },
-          {
-            name: "CURSOR / FIGMA AI",
-            body: "Rapid structural prototyping, token parsing, and layout translation.",
-          },
+          "CLAUDE / CHATGPT",
+          "CURSOR / FIGMA AI",
+          "AI-ASSISTED RESEARCH",
+          "AI-ASSISTED WIREFRAMING",
+          "AI-ASSISTED PROTOTYPING",
         ],
-        note: "AI does not replace design judgment. It reduces repetitive effort and expands exploration.",
       },
       {
         title: "CREATIVE & CODING",
         tools: [
-          {
-            name: "ADOBE CREATIVE SUITE",
-            body: "Advanced vector work, custom vector assets, and visual processing.",
-          },
-          {
-            name: "FRAMER",
-            body: "Interactive code prototypes and front-of-funnel production sites.",
-          },
-          {
-            name: "CORELDRAW",
-            body: "Legacy vector mechanics, CAD translation, and structural illustration.",
-          },
+          "ADOBE CREATIVE SUITE",
+          "HTML/CSS KNOWLEDGE",
+          "CORELDRAW",
         ],
-        note: undefined,
       },
     ],
   },
@@ -119,105 +91,132 @@ export const experiencePage = {
   },
 } as const;
 
-export const experienceRoles = [
+export type ExperienceRole = {
+  duration: string;
+  phase: string;
+  category: string;
+  role: string;
+  description: string;
+  bullets: readonly string[];
+  emphasis: "lead" | "standard" | "compact";
+};
+
+export type ExperienceCompany = {
+  name: string;
+  tenure: string;
+  badge?: string;
+  scope?: {
+    title: string;
+    domainsLabel: string;
+    domains: string;
+    complexityLabel: string;
+    complexity: string;
+  };
+  roles: readonly ExperienceRole[];
+};
+
+export const experienceCompanies: readonly ExperienceCompany[] = [
   {
-    duration: "NOV 2024— AUG 2026",
-    phase: "ACTIVE PEAK",
-    category: "PRODUCT STRATEGY — DESIGN SYSTEMS — DELIVERY",
-    role: "ASSOCIATE LEAD UX/UI DESIGNER",
-    focus: "Product Design · Design Systems · Team Leadership",
-    focusAccent: true,
-    description:
-      "Took increasing ownership of complex product experiences and supported teams through design execution, collaboration, and design quality.",
-    bullets: [
-      "Enterprise UX strategy & discovery",
-      "SaaS and complex workflow design",
-      "Design systems and token governance",
-      "Multi-role experience and access flows",
-      "Mentoring designers and delivery ownership",
-      "Stakeholder collaboration and alignment",
-      "User flows and information architecture",
-      "AI-assisted design workflows",
+    name: "PURPLETALK INDIA PVT LTD",
+    tenure: "NOV 2017 — AUG 2026",
+    badge: "~8+ years of continuous growth",
+    scope: {
+      title: "PURPLETALK PRODUCT SCOPE",
+      domainsLabel: "DOMAINS",
+      domains:
+        "Insurance · FinTech · Equipment Financing · Agriculture · Maritime",
+      complexityLabel: "PRODUCT COMPLEXITY",
+      complexity:
+        "Enterprise SaaS · Complex workflows · Data-heavy products · Multi-role applications · Web & mobile · Design systems · WCAG 2.1 accessibility",
+    },
+    roles: [
+      {
+        duration: "NOV 2024 — AUG 2026",
+        phase: "ACTIVE PEAK",
+        category:
+          "PRODUCT STRATEGY · DESIGN SYSTEMS · DELIVERY · TEAM LEADERSHIP",
+        role: "ASSOCIATE LEAD UX/UI DESIGNER",
+        description:
+          "Led end-to-end UX/UI design for complex enterprise SaaS platforms and workflow-driven products, taking increasing ownership across product strategy, design execution, scalable systems, and design quality.",
+        bullets: [
+          "Enterprise UX strategy and discovery",
+          "SaaS and complex workflow design",
+          "Design systems and token governance",
+          "User flows and information architecture",
+          "Mentoring designers and delivery ownership",
+          "Stakeholder collaboration and alignment",
+        ],
+        emphasis: "lead",
+      },
+      {
+        duration: "OCT 2019 — OCT 2024",
+        phase: "ENTERPRISE",
+        category: "ENTERPRISE UX · SAAS PLATFORMS · COMPLEX WORKFLOWS",
+        role: "SENIOR UX/UI DESIGNER",
+        description:
+          "Designed enterprise product experiences across complex workflows, dashboards, multi-role systems, and responsive web and mobile applications.",
+        bullets: [
+          "Complex user flows and information architecture",
+          "Enterprise SaaS and workflow design",
+          "Dashboards and data-heavy interfaces",
+          "Responsive product experiences",
+          "Cross-functional collaboration",
+        ],
+        emphasis: "standard",
+      },
+      {
+        duration: "NOV 2017 — SEP 2019",
+        phase: "TRANSITION",
+        category: "DIGITAL PRODUCTS · USER EXPERIENCE",
+        role: "UI/UX DESIGNER",
+        description:
+          "Built practical UX foundations through research, stakeholder collaboration, user flows, interface design, and product delivery.",
+        bullets: [],
+        emphasis: "compact",
+      },
     ],
-    stack: "FIGMA · FIGJAM · CLAUDE · CURSOR · JIRA · GITHUB",
-    stackAccent: true,
-    quote: undefined,
-    callout: undefined,
-    footnote: undefined,
   },
   {
-    duration: "OCT 2019 — OCT 2024",
-    phase: "ENTERPRISE",
-    category: "ENTERPRISE PRODUCTS — COMPLEX SYSTEMS",
-    role: "SENIOR UX/UI DESIGNER",
-    focus: "Enterprise UX · SaaS Platforms · Complex Workflows",
-    focusAccent: false,
-    description:
-      "Took ownership of complex enterprise experiences, translating heavy data-dense processes into intuitive web applications. Designed workflows for financial decisioning, environmental telemetry, and real-time operations, establishing design-to-development system guidelines.",
-    bullets: [
-      "Enterprise UX and SaaS refinement",
-      "Multi-role workflows and access flows",
-      "Complex workflow and telemetry UI",
-      "User flows and information architecture",
+    name: "COUPONBUY INC",
+    tenure: "MAY 2015 — OCT 2017",
+    roles: [
+      {
+        duration: "MAY 2015 — OCT 2017",
+        phase: "COMMERCIAL",
+        category:
+          "DIGITAL EXPERIENCES · VISUAL COMMUNICATION · USER-FOCUSED DESIGN",
+        role: "VISUAL DESIGNER",
+        description:
+          "Created visually engaging digital and print experiences while working closely with stakeholders to refine designs around user needs and business goals.",
+        bullets: [
+          "Digital and visual design",
+          "User-focused communication",
+          "Stakeholder collaboration",
+          "Production-ready design assets",
+        ],
+        emphasis: "compact",
+      },
     ],
-    stack: "FIGMA · FIGJAM · MIRO · ADOBE CREATIVE SUITE",
-    stackAccent: false,
-    quote: undefined,
-    callout: undefined,
-    footnote: undefined,
   },
   {
-    duration: "NOV 2017—SEP 2019",
-    phase: "TRANSITION",
-    category: "DIGITAL PRODUCTS — USER EXPERIENCE",
-    role: "UI/UX DESIGNER",
-    focus: "Mobile UX · User Flows · Prototyping",
-    focusAccent: false,
-    description:
-      "My work expanded into digital interfaces and user experience, with increasing focus on flows, interface structure, navigation, and how users complete tasks within a product.",
-    bullets: [
-      "Information architecture and navigation",
-      "Interface structure and wireframing",
-      "Mobile design usability testing",
-      "High-fidelity clickable previews",
+    name: "LEGAL ADVANTAGE PVT LTD",
+    tenure: "SEP 2012 — DEC 2014",
+    roles: [
+      {
+        duration: "SEP 2012 — DEC 2014",
+        phase: "FOUNDATION",
+        category: "PRECISION · VISUAL COMMUNICATION · BRAND CONSISTENCY",
+        role: "GRAPHIC DESIGNER",
+        description:
+          "Built a foundation in structured visual communication by designing digital and print materials with attention to detail, brand consistency, and production quality.",
+        bullets: [
+          "Brand and visual communication",
+          "Logos and brochures",
+          "Digital and print materials",
+          "Collaboration with senior designers and marketing teams",
+        ],
+        emphasis: "compact",
+      },
     ],
-    stack: "FIGMA · SKETCH · ADOBE XD · INVISION",
-    stackAccent: false,
-    quote: '"The focus shifted from how a product looks to how a product works."',
-    callout: undefined,
-    footnote: undefined,
   },
-  {
-    duration: "MAY 2015 — NOV 2017",
-    phase: "COMMERCIAL",
-    category: "VISUAL COMMUNICATION — COMMERCIAL DESIGN",
-    role: "VISUAL DESIGNER",
-    focus: "COUPONBUY · Brand Assets · Graphic Systems",
-    focusAccent: false,
-    description:
-      "Worked on visual design requirements across client projects, creating digital assets and creative materials using Adobe Illustrator, Photoshop, and CorelDRAW. The work expanded from technical illustration into broader commercial visual communication.",
-    bullets: [],
-    stack: "ADOBE ILLUSTRATOR · PHOTOSHOP · CORELDRAW",
-    stackAccent: false,
-    quote: undefined,
-    callout: "THE SHIFT: FROM DESIGNING ASSETS TO DESIGNING EXPERIENCES.",
-    footnote: undefined,
-  },
-  {
-    duration: "SEP 2012 — DEC 2014",
-    phase: "FOUNDATION",
-    category: "EARLY CAREER — TECHNICAL VISUALIZATION",
-    role: "TECHNICAL DRAWING ANALYST",
-    focus: "PATENT DRAWINGS · TECHNICAL ILLUSTRATION · VISUAL ACCURACY",
-    focusAccent: false,
-    description:
-      "Created technical and patent drawings that required careful interpretation of detailed reference material and precise visual execution. The work built a strong foundation in accuracy, consistency, and structured visual communication.",
-    bullets: [],
-    stack: "CORELDRAW · ADOBE ILLUSTRATOR · VECTOR ENGINE",
-    stackAccent: false,
-    quote: undefined,
-    callout: undefined,
-    footnote:
-      "Also supported selected graphic design requirements including flyers, logos, and print-based materials.",
-  },
-] as const;
+];

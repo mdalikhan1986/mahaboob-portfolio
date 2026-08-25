@@ -3,7 +3,11 @@ import { PageShell } from "@/components/layout/PageShell";
 import { BackToTop, footerActionClass } from "@/components/ui/BackToTop";
 import { Container } from "@/components/ui/Container";
 import { SectionMarker } from "@/components/ui/SectionMarker";
-import { experiencePage, experienceRoles } from "@/content/experience";
+import {
+  experienceCompanies,
+  experiencePage,
+  type ExperienceRole,
+} from "@/content/experience";
 import { contactConversationHref } from "@/lib/conversation";
 import { cn } from "@/lib/cn";
 
@@ -22,6 +26,70 @@ function Bullet({ children }: { children: string }) {
         {children}
       </span>
     </li>
+  );
+}
+
+function RoleBlock({
+  role,
+  compact,
+}: {
+  role: ExperienceRole;
+  compact?: boolean;
+}) {
+  const left = role.bullets.slice(0, Math.ceil(role.bullets.length / 2));
+  const right = role.bullets.slice(Math.ceil(role.bullets.length / 2));
+  const isLead = role.emphasis === "lead";
+
+  return (
+    <article
+      className={cn(
+        "flex flex-col gap-6 border-t border-[var(--border-subtle)] lg:flex-row lg:gap-[50px]",
+        compact ? "py-6" : "py-10",
+      )}
+    >
+      <div className="flex w-full shrink-0 flex-col gap-2 lg:w-[150px]">
+        <p className="font-sans text-[length:var(--fs-h4)] font-bold leading-[1.2] text-[var(--text-primary)]">
+          {role.duration}
+        </p>
+        <p className="font-sans text-[length:var(--fs-caption)] font-light leading-[1.2] text-[var(--text-muted)]">
+          {role.phase}
+        </p>
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col gap-5">
+        <div className="flex flex-col gap-1">
+          <p className="font-sans text-[length:var(--fs-caption)] font-semibold leading-[1.2] text-[var(--text-muted)]">
+            {role.category}
+          </p>
+          <h3
+            className={cn(
+              "font-sans font-semibold leading-[1.2] text-[var(--text-white)]",
+              isLead
+                ? "text-[28px] sm:text-[length:var(--fs-h2)]"
+                : "text-[28px] sm:text-[length:var(--fs-h3)]",
+            )}
+          >
+            {role.role}
+          </h3>
+        </div>
+        <p className="font-sans text-[length:var(--fs-body-1)] font-light leading-[1.2] text-[var(--text-muted)]">
+          {role.description}
+        </p>
+        {role.bullets.length > 0 ? (
+          <div className="grid grid-cols-1 gap-x-10 gap-y-2.5 md:grid-cols-2">
+            <ul className="flex flex-col gap-2.5">
+              {left.map((item) => (
+                <Bullet key={item}>{item}</Bullet>
+              ))}
+            </ul>
+            <ul className="flex flex-col gap-2.5">
+              {right.map((item) => (
+                <Bullet key={item}>{item}</Bullet>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </div>
+    </article>
   );
 }
 
@@ -189,114 +257,62 @@ export function ExperiencePage() {
               {experiencePage.timeline.heading}
             </h2>
           </div>
-          <div>
-            {experienceRoles.map((role, index) => {
-              const left = role.bullets.slice(0, Math.ceil(role.bullets.length / 2));
-              const right = role.bullets.slice(Math.ceil(role.bullets.length / 2));
-
-              return (
-                <article
-                  key={role.role}
-                  className={cn(
-                    "flex flex-col gap-6 border-t border-[var(--border-subtle)] py-10 lg:flex-row lg:gap-[50px]",
-                    index === experienceRoles.length - 1 && "border-b",
-                  )}
-                >
-                  <div className="flex w-full shrink-0 flex-col gap-2 lg:w-[150px]">
-                    <p className="font-sans text-[length:var(--fs-h4)] font-bold leading-[1.2] text-[var(--text-primary)]">
-                      {role.duration}
-                    </p>
-                    <p className="font-sans text-[length:var(--fs-caption)] font-light leading-[1.2] text-[var(--text-muted)]">
-                      {role.phase}
-                    </p>
-                  </div>
-                  <div className="flex min-w-0 flex-1 flex-col gap-5">
-                    <div className="flex flex-col gap-1">
-                      <p className="font-sans text-[length:var(--fs-caption)] font-semibold leading-[1.2] text-[var(--text-muted)]">
-                        {role.category}
-                      </p>
-                      <h3
-                        className={cn(
-                          "font-sans font-semibold leading-[1.2] text-[var(--text-white)]",
-                          index === 0
-                            ? "text-[28px] sm:text-[length:var(--fs-h2)]"
-                            : "text-[28px] sm:text-[length:var(--fs-h3)]",
-                        )}
-                      >
-                        {role.role}
-                      </h3>
-                      <p
-                        className={cn(
-                          "font-sans text-[length:var(--fs-title)] font-semibold leading-[1.2]",
-                          role.focusAccent
-                            ? "text-[var(--text-primary)]"
-                            : "text-[var(--text-muted)]",
-                        )}
-                      >
-                        {role.focus}
-                      </p>
-                    </div>
-                    <p className="font-sans text-[length:var(--fs-body-1)] font-light leading-[1.2] text-[var(--text-muted)]">
-                      {role.description}
-                    </p>
-                    {role.quote ? (
-                      <p className="rounded-[4px] bg-[#121212] p-4 font-sans text-[length:var(--fs-title)] font-semibold leading-[1.2] text-[var(--text-primary)]">
-                        {role.quote}
-                      </p>
+          <div className="flex flex-col gap-12">
+            {experienceCompanies.map((company) => (
+              <div key={company.name} className="flex flex-col gap-8">
+                <div className="flex flex-col gap-2">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h3 className="font-sans text-[length:var(--fs-h4)] font-bold leading-[1.2] text-[var(--text-white)]">
+                      {company.name}
+                    </h3>
+                    {company.badge ? (
+                      <span className="rounded-[4px] bg-[#1d222f] px-2 py-1 font-sans text-[length:var(--fs-caption)] font-bold leading-[1.2] text-[var(--text-primary)]">
+                        {company.badge}
+                      </span>
                     ) : null}
-                    {role.callout ? (
-                      <div className="flex items-center gap-3 py-4">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src="/icons/experience-shift-line.svg"
-                          alt=""
-                          width={24}
-                          height={2}
-                          className="h-px w-6 shrink-0"
-                        />
-                        <p className="font-sans text-[length:var(--fs-caption)] font-bold leading-[1.2] text-[var(--text-white)]">
-                          {role.callout}
+                  </div>
+                  <p className="font-sans text-[length:var(--fs-caption)] font-light leading-[1.2] text-[var(--text-muted)]">
+                    {company.tenure}
+                  </p>
+                </div>
+
+                <div>
+                  {company.roles.map((role) => (
+                    <RoleBlock
+                      key={role.role}
+                      role={role}
+                      compact={role.emphasis === "compact"}
+                    />
+                  ))}
+                </div>
+
+                {company.scope ? (
+                  <div className="flex flex-col gap-6 rounded-[4px] border-t border-[#1d222f] bg-[#12141c] p-6">
+                    <p className="font-sans text-[length:var(--fs-caption)] font-bold leading-[1.2] text-[var(--text-white)]">
+                      {company.scope.title}
+                    </p>
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                      <div className="flex flex-col gap-2">
+                        <p className="font-sans text-[length:var(--fs-caption)] font-bold leading-[1.2] text-[var(--text-primary)]">
+                          {company.scope.domainsLabel}
+                        </p>
+                        <p className="font-sans text-[length:var(--fs-body-2)] font-light leading-[1.2] text-[var(--text-muted)]">
+                          {company.scope.domains}
                         </p>
                       </div>
-                    ) : null}
-                    {role.bullets.length > 0 ? (
-                      <div className="grid grid-cols-1 gap-x-10 gap-y-2.5 md:grid-cols-2">
-                        <ul className="flex flex-col gap-2.5">
-                          {left.map((item) => (
-                            <Bullet key={item}>{item}</Bullet>
-                          ))}
-                        </ul>
-                        <ul className="flex flex-col gap-2.5">
-                          {right.map((item) => (
-                            <Bullet key={item}>{item}</Bullet>
-                          ))}
-                        </ul>
+                      <div className="flex flex-col gap-2">
+                        <p className="font-sans text-[length:var(--fs-caption)] font-bold leading-[1.2] text-[var(--text-primary)]">
+                          {company.scope.complexityLabel}
+                        </p>
+                        <p className="font-sans text-[length:var(--fs-body-2)] font-light leading-[1.2] text-[var(--text-muted)]">
+                          {company.scope.complexity}
+                        </p>
                       </div>
-                    ) : null}
-                    <p className="flex flex-wrap items-center gap-2 font-sans text-[length:var(--fs-caption)] leading-[1.2]">
-                      <span className="font-bold text-[var(--text-muted)]">
-                        STACK:
-                      </span>
-                      <span
-                        className={cn(
-                          "font-semibold",
-                          role.stackAccent
-                            ? "text-[var(--text-primary)]"
-                            : "text-[var(--text-muted)]",
-                        )}
-                      >
-                        {role.stack}
-                      </span>
-                    </p>
-                    {role.footnote ? (
-                      <p className="font-sans text-[length:var(--fs-caption)] font-light leading-[1.2] text-[var(--text-muted)]">
-                        {role.footnote}
-                      </p>
-                    ) : null}
+                    </div>
                   </div>
-                </article>
-              );
-            })}
+                ) : null}
+              </div>
+            ))}
           </div>
         </section>
 
@@ -315,38 +331,31 @@ export function ExperiencePage() {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {experiencePage.toolkit.columns.map((column) => (
               <article
                 key={column.title}
-                className="flex flex-col gap-5 rounded-lg bg-[#121212] p-6"
+                className="flex flex-col gap-3 rounded-lg bg-[#121212] p-5"
               >
                 <p className="font-sans text-[length:var(--fs-caption)] font-bold leading-[1.2] text-[var(--text-primary)]">
                   {column.title}
                 </p>
-                <div className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-2">
                   {column.tools.map((tool) => (
-                    <div key={tool.name} className="flex flex-col gap-1">
-                      <h3 className="font-sans text-[length:var(--fs-title)] font-semibold leading-[1.2] text-[var(--text-white)]">
-                        {tool.name}
-                      </h3>
-                      <p className="font-sans text-[length:var(--fs-body-2)] font-light leading-[1.2] text-[var(--text-muted)]">
-                        {tool.body}
-                      </p>
-                    </div>
+                    <li
+                      key={tool}
+                      className="font-sans text-[length:var(--fs-title)] font-semibold leading-[1.2] text-[var(--text-white)]"
+                    >
+                      {tool}
+                    </li>
                   ))}
-                  {column.note ? (
-                    <p className="rounded-[4px] border border-amber-500/40 bg-amber-500/10 p-2 font-sans text-[11px] font-normal leading-[14px] text-amber-100">
-                      {column.note}
-                    </p>
-                  ) : null}
-                </div>
+                </ul>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="flex flex-col gap-8 border-b border-[var(--border-subtle)] pt-[var(--space-footer-pad-top)] pb-[var(--space-section-index)]">
+        <section className="flex flex-col gap-[var(--space-heading-to-copy)] border-b border-[var(--border-subtle)] py-[var(--space-section)]">
           <div className="flex items-center gap-3">
             <span className="font-sans text-[length:var(--fs-caption)] font-semibold leading-[1.2] text-[var(--text-primary)]">
               {experiencePage.next.eyebrow}
