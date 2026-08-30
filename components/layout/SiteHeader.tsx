@@ -33,9 +33,19 @@ export function SiteHeader() {
           <Link
             href="/"
             onClick={() => setOpen(false)}
-            className="min-w-0 shrink font-sans text-[18px] font-medium leading-[1.2] text-[var(--text-white)] sm:text-[22px] lg:text-[length:var(--fs-h4)]"
+            className="flex min-w-0 shrink items-center gap-3 sm:gap-5"
           >
-            {site.wordmark}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/logo/Logo.svg"
+              alt=""
+              width={68}
+              height={54}
+              className="h-8 w-10 shrink-0 object-contain lg:h-[54px] lg:w-[67.5px]"
+            />
+            <span className="min-w-0 truncate font-sans text-[18px] font-medium leading-[1.2] text-[var(--text-white)] sm:text-[22px] lg:text-[length:var(--fs-h4)]">
+              {site.wordmark}
+            </span>
           </Link>
 
           <nav

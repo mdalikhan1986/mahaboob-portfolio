@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteLegalFooter } from "@/components/layout/SiteLegalFooter";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <SiteHeader />
         <main id="main">{children}</main>
+        <SiteLegalFooter />
       </body>
     </html>
   );
