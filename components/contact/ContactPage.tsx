@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactHeroActions } from "@/components/contact/ContactHeroActions";
 import { PageShell } from "@/components/layout/PageShell";
@@ -222,19 +223,15 @@ export function ContactPage() {
           </div>
         </section>
 
-        <footer className="flex flex-wrap items-center justify-between gap-4 py-[var(--space-footer-y)]">
-          <p className="font-sans text-[length:var(--fs-caption)] font-semibold leading-[1.2] text-[var(--text-muted)]">
-            {contactPage.footer.copyright}
-          </p>
+        <footer className="grid grid-cols-3 items-center gap-4 py-[var(--space-footer-y)]">
+          <span />
           <BackToTop label={contactPage.footer.top} />
-          <a
-            href={contactPage.linkedinHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${footerActionClass} text-[var(--text-primary)]`}
+          <Link
+            href="/"
+            className={`${footerActionClass} justify-self-end text-[var(--text-primary)]`}
           >
-            {contactPage.footer.linkedin}
-          </a>
+            Home →
+          </Link>
         </footer>
       </Container>
     </PageShell>

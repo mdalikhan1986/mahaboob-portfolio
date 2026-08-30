@@ -55,6 +55,16 @@ export const selectedProjects = [
   },
   {
     index: "04",
+    category: "MOBILE PRODUCT EXPERIENCE",
+    title: "DISHA",
+    description:
+      "A multi-role mobile platform connecting job seekers with employment and learning opportunities while supporting simple, multilingual, and accessible experiences across diverse digital contexts.",
+    tags: "MOBILE UX · USER RESEARCH · MULTI-ROLE WORKFLOWS",
+    cta: "VIEW PROJECT",
+    href: "/work/disha",
+  },
+  {
+    index: "05",
     category: "DESIGN SYSTEM",
     title: "SCALABLE DESIGN SYSTEM",
     description:

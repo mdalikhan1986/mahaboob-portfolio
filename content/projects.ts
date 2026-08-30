@@ -245,8 +245,91 @@ export const projects: readonly ProjectCaseStudy[] = [
     ],
     prev: { label: "← HYDROGROW", href: "/work/hydrogrow" },
     next: {
-      label: "NEXT → SCALABLE DESIGN SYSTEM",
-      href: "/work/design-system",
+      label: "NEXT → DISHA",
+      href: "/work/disha",
+      tone: "primary",
+    },
+  },
+  {
+    slug: "disha",
+    title: "DISHA",
+    eyebrow: "03 — MOBILE PRODUCT EXPERIENCE",
+    summary:
+      "A multi-role mobile platform designed to connect users with employment and learning opportunities while supporting simple, multilingual, and accessible experiences across diverse digital contexts.",
+    description:
+      "A multi-role mobile platform designed to connect users with employment and learning opportunities while supporting simple, multilingual, and accessible experiences across diverse digital contexts.",
+    role: "UX/UI Designer",
+    platform: "Mobile Application",
+    users: "Job Seekers · HR · Sales · Platform Admin",
+    pdfSrc: "/documents/Disha-case-study.pdf",
+    pdfDownloadName: "Disha-case-study.pdf",
+    pdfLabel: "DISHA_WORKSHOP_OUTCOMES.PDF",
+    overview:
+      "Disha is a mobile platform focused on helping users discover jobs, online courses, and self-employment opportunities. The design direction was shaped around users with different levels of education, digital confidence, language preferences, connectivity, and accessibility needs.",
+    challengeIntro:
+      "The product needed to serve users with very different needs and levels of digital confidence while remaining simple enough to use in everyday situations.",
+    challengeBullets: [
+      "Supporting users who prefer Hindi over English-heavy interfaces.",
+      "Designing for inconsistent internet connectivity and entry-level devices.",
+      "Making important tasks understandable for users with limited digital experience.",
+      "Supporting accessibility needs such as larger controls, voice interaction, and simpler navigation.",
+      "Balancing end-user needs with operational requirements across HR, Sales, and Platform Administration.",
+    ],
+    solutionIntro:
+      "A mobile experience structured around simple task flows, accessible interaction patterns, and support for multiple user contexts.",
+    solutionBullets: [
+      "Designed user flows around jobs, learning, and self-employment opportunities.",
+      "Established multilingual considerations with Hindi as an important accessibility and usability requirement.",
+      "Simplified interaction patterns for users with different levels of digital confidence.",
+      "Considered voice interaction and larger controls for accessibility.",
+      "Mapped separate experiences for end users, Sales Training, HR Administration, and Platform Administration.",
+    ],
+    decisions: [
+      {
+        numeral: "I",
+        title: "Language-first Experience",
+        body: "Considered Hindi as a primary usability requirement for users who struggle with English-heavy platforms.",
+      },
+      {
+        numeral: "II",
+        title: "Simpler Interaction",
+        body: "Reduced complexity through straightforward navigation and task-focused interaction patterns for users with different levels of digital confidence.",
+      },
+      {
+        numeral: "III",
+        title: "Accessibility",
+        body: "Considered larger controls, voice interaction, voice input, and screen-reader-friendly experiences for users with accessibility needs.",
+      },
+      {
+        numeral: "IV",
+        title: "Real-world Constraints",
+        body: "Designed with inconsistent connectivity and entry-level Android devices in mind rather than assuming ideal technical conditions.",
+      },
+      {
+        numeral: "V",
+        title: "Multi-role Product Thinking",
+        body: "Considered the needs of end users alongside HR, Sales Training, and Platform Administration workflows.",
+      },
+    ],
+    contribution: [
+      "UX Research",
+      "Persona Development",
+      "Empathy Mapping",
+      "User Flows",
+      "Information Architecture",
+      "Low-Fidelity Wireframes",
+      "Accessibility",
+      "Visual Direction",
+      "Prototyping",
+    ],
+    outcomeIntro: [
+      "Established a research-led foundation for a multilingual and accessible mobile experience, translating diverse user needs into personas, empathy maps, visual direction, and low-fidelity product flows.",
+      "The workshop produced a clearer understanding of user contexts, accessibility requirements, and the core flows needed to move the concept toward product definition.",
+    ],
+    prev: { label: "← INTERPRETER", href: "/work/interpreter" },
+    next: {
+      label: "NEXT → HYDROGROW",
+      href: "/work/hydrogrow",
       tone: "primary",
     },
   },
@@ -321,8 +404,8 @@ export const projects: readonly ProjectCaseStudy[] = [
       "Accelerated product engineering cycles by 3x and achieved 100% WCAG compliance on all new feature deployments within two quarters.",
     ],
     prev: {
-      label: "← INTERPRETER",
-      href: "/work/interpreter",
+      label: "← DISHA",
+      href: "/work/disha",
       tone: "primary",
     },
     next: { label: "(LAST PROJECT)" },
