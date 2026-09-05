@@ -44,14 +44,20 @@ export function WorkIndex() {
               <article
                 key={project.title}
                 className={cn(
-                  "flex flex-col gap-6 border-t border-[var(--border-subtle)] py-10 lg:flex-row lg:items-start lg:justify-between",
+                  "group relative flex cursor-pointer flex-col gap-6 border-t border-[var(--border-subtle)] py-10 transition-[transform,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:bg-white/[0.02] lg:flex-row lg:items-start lg:justify-between",
                   index === selectedProjects.length - 1 && "border-b",
                 )}
               >
-                <p className="w-20 shrink-0 font-sans text-[28px] font-semibold leading-[1.2] text-[var(--text-primary)] lg:text-[length:var(--fs-h3)]">
+                <Link
+                  href={project.href}
+                  aria-hidden="true"
+                  tabIndex={-1}
+                  className="absolute inset-0 z-0"
+                />
+                <p className="pointer-events-none relative z-[1] w-20 shrink-0 font-sans text-[28px] font-semibold leading-[1.2] text-[var(--text-primary)] lg:text-[length:var(--fs-h3)]">
                   {project.index}
                 </p>
-                <div className="flex w-full max-w-[760px] flex-col gap-4">
+                <div className="pointer-events-none relative z-[1] flex w-full max-w-[760px] flex-col gap-4">
                   <div className="flex flex-col gap-1">
                     <p className="font-sans text-[length:var(--fs-caption)] font-semibold uppercase leading-[1.2] text-[var(--text-muted)]">
                       {project.category}
@@ -70,10 +76,13 @@ export function WorkIndex() {
                 <Action
                   href={project.href}
                   variant="text"
-                  className="h-8 px-2.5 lg:ml-auto"
+                  className="relative z-[1] h-8 px-2.5 lg:ml-auto"
                 >
                   {project.cta}
-                  <Icon name="arrow" className="h-[8px] w-[13px] object-contain" />
+                  <Icon
+                    name="arrow"
+                    className="h-[8px] w-[13px] object-contain transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+                  />
                 </Action>
               </article>
             ))}
