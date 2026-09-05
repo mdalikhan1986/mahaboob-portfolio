@@ -9,6 +9,11 @@ import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
+const INTERPRETER_PDF_SRC = "/documents/interpreter-case-study.pdf";
+const INTERPRETER_PROTOTYPE_TEXT = "Interpreter Application Prototype Link";
+const INTERPRETER_PROTOTYPE_HREF =
+  "https://www.figma.com/proto/dblKRF2s22IphYdADTjSeR/Design-File-1?page-id=&node-id=141-5138&viewport=-894%2C-361%2C0.1&t=CBnskR81a6SCq2sz-1&scaling=contain&content-scaling=fixed&starting-point-node-id=141%3A5138&show-proto-sidebar=1";
+
 type ProjectPdfViewerProps = {
   src: string;
   label: string;
@@ -160,11 +165,16 @@ export function ProjectPdfViewer({
     setExpanded(false);
   }
 
+  const isInterpreter = src === INTERPRETER_PDF_SRC;
+
   const viewer = (
     <div
       className={cn(
         "flex w-full flex-col overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-[#121212]",
         expanded && "relative z-[80] h-full max-h-full w-full max-w-[1100px]",
+        !expanded &&
+          isInterpreter &&
+          "h-[min(560px,calc(100vh-200px))] max-h-[min(560px,calc(100vh-200px))]",
       )}
     >
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-subtle)] bg-[#1a1a1a] p-5">
@@ -200,8 +210,8 @@ export function ProjectPdfViewer({
         ref={scrollRef}
         className={cn(
           "overflow-y-auto overflow-x-hidden bg-[#0f111a]",
-          expanded
-            ? "min-h-0 flex-1"
+          expanded || isInterpreter
+            ? "min-h-0 h-0 flex-1"
             : "h-[min(700px,calc(100vh-240px))] max-h-[700px]",
         )}
       >
@@ -247,8 +257,23 @@ export function ProjectPdfViewer({
           </div>
         </Document>
       </div>
+      {isInterpreter ? (
+        <div className="flex shrink-0 flex-wrap items-center gap-2 border-t border-[var(--border-subtle)] bg-[#14171e] px-5 py-5">
+          <span className="font-sans text-[length:var(--fs-caption)] font-semibold leading-[1.2] text-[var(--text-muted)]">
+            Prototype Link:
+          </span>
+          <a
+            href={INTERPRETER_PROTOTYPE_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-sans text-[length:var(--fs-caption)] font-semibold leading-[1.2] text-[var(--text-primary)] underline"
+          >
+            {INTERPRETER_PROTOTYPE_TEXT}
+          </a>
+        </div>
+      ) : null}
 
-      <div className="flex items-center justify-between border-t border-[var(--border-subtle)] p-5">
+      <div className="flex shrink-0 items-center justify-between border-t border-[var(--border-subtle)] p-5">
         <p className="font-sans text-[length:var(--fs-caption)] font-semibold leading-[1.2] text-[var(--text-muted)]">
           PAGE {padPage(currentPage)} / {padPage(numPages || 1)}
         </p>
